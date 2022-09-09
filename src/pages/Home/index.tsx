@@ -47,11 +47,11 @@ const CardList = styled.div`
 const Home = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const [auctions, setAuctions] = useState<Auction[]>([]);
-
   useEffect(() => {
     fetchAuctions();
   }, []);
+
+  const [auctions, setAuctions] = useState<Auction[]>([]);
 
   async function fetchAuctions(): Promise<void> {
     const auctionList = await subgraphService.getAuctions();

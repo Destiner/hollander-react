@@ -99,10 +99,6 @@ const AuctionRoute = (): JSX.Element => {
     await fetchAsset(auction.assetOut, auction.address);
   }
 
-  const status = useMemo<AuctionStatus | null>(() => {
-    return auction ? getStatus(auction.blockStart, auction.amountOut) : null;
-  }, [auction]);
-
   async function fetchAuction(auctionAddress: string): Promise<void> {
     const owner = await hollanderService.owner(auctionAddress);
     const blockStart = await hollanderService.blockStart(auctionAddress);
@@ -188,6 +184,10 @@ const AuctionRoute = (): JSX.Element => {
       );
     }
   }
+
+  const status = useMemo<AuctionStatus | null>(() => {
+    return auction ? getStatus(auction.blockStart, auction.amountOut) : null;
+  }, [auction]);
 
   function getBalance(asset: string, owner: string): bigint {
     if (!balances[asset]) {
@@ -292,8 +292,6 @@ const AuctionRoute = (): JSX.Element => {
     setPendingTx(false);
     auction.amountIn = 0n;
   }
-
-  console.log(status, enoughBalance, enoughAllowance);
 
   return auction ? (
     <Page>
