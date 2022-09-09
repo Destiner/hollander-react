@@ -60,6 +60,6 @@ class SubgraphService {
   }
 }
 
-export { Auction };
+export type { Auction };
 
 export default SubgraphService;

@@ -42,11 +42,15 @@ const WalletChip = ({ address }: Props): JSX.Element => {
     );
   }, [address]);
 
+  function handleClick() {
+    dispatch(disconnect());
+  }
+
   return (
     <Chip>
       <Icon ref={iconEl} />
       {formatAddress(address)}
-      <IconCross onClick={(): void => dispatch(disconnect())}>X</IconCross>
+      <IconCross onClick={handleClick}>X</IconCross>
     </Chip>
   );
 };
