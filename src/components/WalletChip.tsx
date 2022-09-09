@@ -42,7 +42,7 @@ const WalletChip = ({ address }: Props): JSX.Element => {
     );
   }, [address]);
 
-  function handleClick() {
+  function handleClick(): void {
     dispatch(disconnect());
   }
 
