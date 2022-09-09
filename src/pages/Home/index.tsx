@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import AuctionCard from '../components/AuctionCard';
-import HolButton from '../components/_common/HolButton';
-import Erc20Service from '../services/erc20';
-import SubgraphService from '../services/subgraph';
+import AuctionCard from '../../components/AuctionCard';
+import HolButton from '../../components/_common/HolButton';
+import Erc20Service from '../../services/erc20';
+import SubgraphService from '../../services/subgraph';
 
 const erc20Service = new Erc20Service();
 const subgraphService = new SubgraphService();

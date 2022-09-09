@@ -2,16 +2,16 @@ import { useState, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import StatusBadge from '../components/StatusBadge';
-import HolAsset from '../components/_common/HolAsset';
-import HolButton from '../components/_common/HolButton';
-import { useAppSelector, useAppDispatch } from '../hooks/useAppSelector';
-import Erc20Service from '../services/erc20';
-import HollanderService from '../services/hollander';
-import { setAllowance, setBalance } from '../stores/asset';
-import { AuctionStatus, getStatus } from '../utils/auction';
-import { blocksToHours } from '../utils/converters';
-import { auctionPriceFromWei, fromWei } from '../utils/formatters';
+import StatusBadge from '../../components/StatusBadge';
+import HolAsset from '../../components/_common/HolAsset';
+import HolButton from '../../components/_common/HolButton';
+import { useAppSelector, useAppDispatch } from '../../hooks/useAppSelector';
+import Erc20Service from '../../services/erc20';
+import HollanderService from '../../services/hollander';
+import { setAllowance, setBalance } from '../../stores/asset';
+import { AuctionStatus, getStatus } from '../../utils/auction';
+import { blocksToHours } from '../../utils/converters';
+import { auctionPriceFromWei, fromWei } from '../../utils/formatters';
 
 interface Auction {
   owner: string;

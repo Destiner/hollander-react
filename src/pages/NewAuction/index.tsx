@@ -2,14 +2,14 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import HolAsset from '../components/_common/HolAsset';
-import HolButton from '../components/_common/HolButton';
-import HolInput from '../components/_common/HolInput';
-import { useAppSelector } from '../hooks/useAppSelector';
-import HollanderService from '../services/hollander';
-import { USDC_TESTNET_ADDRESS, WETH_TESTNET_ADDRESS } from '../utils/assets';
-import { hoursToBlocks } from '../utils/converters';
-import { auctionPriceToWei, toWei } from '../utils/formatters';
+import HolAsset from '../../components/_common/HolAsset';
+import HolButton from '../../components/_common/HolButton';
+import HolInput from '../../components/_common/HolInput';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import HollanderService from '../../services/hollander';
+import { USDC_TESTNET_ADDRESS, WETH_TESTNET_ADDRESS } from '../../utils/assets';
+import { hoursToBlocks } from '../../utils/converters';
+import { auctionPriceToWei, toWei } from '../../utils/formatters';
 
 const service = new HollanderService();
 

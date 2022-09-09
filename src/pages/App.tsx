@@ -3,9 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-import Auction from './auction';
-import NewAuction from './auction-new';
-import Home from './home';
+import Auction from './Auction';
+import Home from './Home';
+import NewAuction from './NewAuction';
 
 const App = (): JSX.Element => {
   return (
