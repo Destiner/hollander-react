@@ -120,7 +120,7 @@ const AuctionRoute = (): JSX.Element => {
         ? await hollanderService.getPrice(auctionAddress, 0n)
         : auction.initialPrice;
 
-    if (!price) {
+    if (price === null) {
       return;
     }
 
