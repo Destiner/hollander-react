@@ -21,6 +21,7 @@
     "@metamask/jazzicon": "^2.0.0",
     "@reduxjs/toolkit": "^1.8.5",
     "abi-coder": "^4.0.0",
+    "ethcall": "^4.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
