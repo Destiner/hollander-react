@@ -62,7 +62,7 @@ const AuctionCard = ({
       </Header>
       <div>
         <Param>
-          Sell amount: {fromWei(assetOut, amountOut)} /
+          Sell amount: {fromWei(assetOut, amountOut)}/
           {fromWei(assetOut, amountOutTotal)}
           <HolAsset
             size="s"
