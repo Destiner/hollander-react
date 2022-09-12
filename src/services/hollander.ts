@@ -2,6 +2,10 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
 import { TransactionResponse } from '@ethersproject/providers';
 import { Coder } from 'abi-coder';
+import {
+  Contract as EthcallContract,
+  Provider as EthcallProvider,
+} from 'ethcall';
 
 import auctionAbi from '../abi/auction.json';
 import factoryAbi from '../abi/factory.json';
@@ -90,16 +94,38 @@ class HollanderService extends EthereumService {
     if (!this.provider) {
       return null;
     }
-    const contract = new Contract(address, auctionAbi, this.provider);
+    const provider = new EthcallProvider();
+    await provider.init(this.provider);
+    const contract = new EthcallContract(address, auctionAbi);
 
-    const owner = await contract.owner();
-    const blockStart = await contract.blockStart();
-    const tokenBase = await contract.tokenBase();
-    const tokenQuote = await contract.tokenQuote();
-    const amountBaseTotal = await contract.amountBase();
-    const initialPrice = await contract.initialPrice();
-    const halvingPeriod = await contract.halvingPeriod();
-    const swapPeriod = await contract.swapPeriod();
+    const ownerCall = contract.owner();
+    const blockStartCall = contract.blockStart();
+    const tokenBaseCall = contract.tokenBase();
+    const tokenQuoteCall = contract.tokenQuote();
+    const amountBaseTotalCall = contract.amountBase();
+    const initialPriceCall = contract.initialPrice();
+    const halvingPeriodCall = contract.halvingPeriod();
+    const swapPeriodCall = contract.swapPeriod();
+
+    const results = await provider.all([
+      ownerCall,
+      blockStartCall,
+      tokenBaseCall,
+      tokenQuoteCall,
+      amountBaseTotalCall,
+      initialPriceCall,
+      halvingPeriodCall,
+      swapPeriodCall,
+    ]);
+
+    const owner = results[0];
+    const blockStart = results[1];
+    const tokenBase = results[2];
+    const tokenQuote = results[3];
+    const amountBaseTotal = results[4];
+    const initialPrice = results[5];
+    const halvingPeriod = results[6];
+    const swapPeriod = results[7];
 
     return {
       owner,
