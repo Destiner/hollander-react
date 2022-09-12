@@ -10,6 +10,17 @@ import EthereumService from './ethereum';
 
 const FACTORY_ADDRESS = '0x26704df470f36A45592EcC07E9CAcC7aB795A094';
 
+interface Auction {
+  owner: string;
+  blockStart: bigint;
+  tokenBase: string;
+  tokenQuote: string;
+  amountBaseTotal: bigint;
+  initialPrice: bigint;
+  halvingPeriod: bigint;
+  swapPeriod: bigint;
+}
+
 class HollanderService extends EthereumService {
   async createAuction(
     tokenBase: string,
@@ -73,6 +84,33 @@ class HollanderService extends EthereumService {
     const contract = new Contract(auction, auctionAbi, this.signer);
     const tx: TransactionResponse = await contract.withdraw();
     await tx.wait();
+  }
+
+  async getAuction(address: string): Promise<Auction> {
+    if (!this.provider) {
+      return null;
+    }
+    const contract = new Contract(address, auctionAbi, this.provider);
+
+    const owner = await contract.owner();
+    const blockStart = await contract.blockStart();
+    const tokenBase = await contract.tokenBase();
+    const tokenQuote = await contract.tokenQuote();
+    const amountBaseTotal = await contract.amountBase();
+    const initialPrice = await contract.initialPrice();
+    const halvingPeriod = await contract.halvingPeriod();
+    const swapPeriod = await contract.swapPeriod();
+
+    return {
+      owner,
+      blockStart,
+      tokenBase,
+      tokenQuote,
+      amountBaseTotal,
+      initialPrice,
+      halvingPeriod,
+      swapPeriod,
+    };
   }
 
   async owner(auction: string): Promise<string | null> {

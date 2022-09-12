@@ -100,61 +100,43 @@ const AuctionRoute = (): JSX.Element => {
   }
 
   async function fetchAuction(auctionAddress: string): Promise<void> {
-    const owner = await hollanderService.owner(auctionAddress);
-    const blockStart = await hollanderService.blockStart(auctionAddress);
-    const tokenBase = await hollanderService.tokenBase(auctionAddress);
-    const tokenQuote = await hollanderService.tokenQuote(auctionAddress);
-    const amountBaseTotal = await hollanderService.amountBase(auctionAddress);
-    const initialPrice = await hollanderService.initialPrice(auctionAddress);
-    const halvingPeriod = await hollanderService.halvingPeriod(auctionAddress);
-    const swapPeriod = await hollanderService.swapPeriod(auctionAddress);
-
-    if (
-      !owner ||
-      blockStart === null ||
-      !tokenBase ||
-      !tokenQuote ||
-      !amountBaseTotal ||
-      !initialPrice ||
-      !halvingPeriod ||
-      !swapPeriod
-    ) {
-      return;
-    }
+    const auction = await hollanderService.getAuction(auctionAddress);
 
     const amountQuote = await erc20Service.balanceOf(
-      tokenQuote,
+      auction.tokenQuote,
       auctionAddress,
     );
-    const amountBase = await erc20Service.balanceOf(tokenBase, auctionAddress);
+    const amountBase = await erc20Service.balanceOf(
+      auction.tokenBase,
+      auctionAddress,
+    );
 
     if (amountQuote === null || amountBase === null) {
       return;
     }
 
     const price =
-      getStatus(parseInt(blockStart.toString()), amountBase) !== 'draft'
+      getStatus(parseInt(auction.blockStart.toString()), amountBase) !== 'draft'
         ? await hollanderService.getPrice(auctionAddress, 0n)
-        : initialPrice;
+        : auction.initialPrice;
 
     if (!price) {
       return;
     }
 
-    const auction: Auction = {
-      owner,
+    setAuction({
+      owner: auction.owner,
       address: auctionAddress,
-      assetIn: tokenQuote,
-      assetOut: tokenBase,
+      assetIn: auction.tokenQuote,
+      assetOut: auction.tokenBase,
       amountIn: amountQuote,
       amountOut: amountBase,
-      amountOutTotal: amountBaseTotal,
+      amountOutTotal: auction.amountBaseTotal,
       price,
-      halvingPeriod: parseInt(halvingPeriod.toString()),
-      swapPeriod: parseInt(swapPeriod.toString()),
-      blockStart: parseInt(blockStart.toString()),
-    };
-    setAuction(auction);
+      halvingPeriod: parseInt(auction.halvingPeriod.toString()),
+      swapPeriod: parseInt(auction.swapPeriod.toString()),
+      blockStart: parseInt(auction.blockStart.toString()),
+    });
   }
 
   async function fetchAsset(asset: string, auction: string): Promise<void> {
