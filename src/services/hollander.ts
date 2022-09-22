@@ -90,7 +90,7 @@ class HollanderService extends EthereumService {
     await tx.wait();
   }
 
-  async getAuction(address: string): Promise<Auction> {
+  async getAuction(address: string): Promise<Auction | null> {
     if (!this.provider) {
       return null;
     }
@@ -118,14 +118,14 @@ class HollanderService extends EthereumService {
       swapPeriodCall,
     ]);
 
-    const owner = results[0];
-    const blockStart = results[1];
-    const tokenBase = results[2];
-    const tokenQuote = results[3];
-    const amountBaseTotal = results[4];
-    const initialPrice = results[5];
-    const halvingPeriod = results[6];
-    const swapPeriod = results[7];
+    const owner = results[0] as string;
+    const blockStart = (results[1] as BigNumber).toBigInt();
+    const tokenBase = results[2] as string;
+    const tokenQuote = results[3] as string;
+    const amountBaseTotal = (results[4] as BigNumber).toBigInt();
+    const initialPrice = (results[5] as BigNumber).toBigInt();
+    const halvingPeriod = (results[6] as BigNumber).toBigInt();
+    const swapPeriod = (results[7] as BigNumber).toBigInt();
 
     return {
       owner,

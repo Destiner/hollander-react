@@ -102,6 +102,10 @@ const AuctionRoute = (): JSX.Element => {
   async function fetchAuction(auctionAddress: string): Promise<void> {
     const auction = await hollanderService.getAuction(auctionAddress);
 
+    if (!auction) {
+      return;
+    }
+
     const amountQuote = await erc20Service.balanceOf(
       auction.tokenQuote,
       auctionAddress,
