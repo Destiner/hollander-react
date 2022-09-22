@@ -43,6 +43,7 @@ const HolInput = ({ value, onUserInput, children }: Props): JSX.Element => {
   return (
     <Wrapper>
       <Input
+        data-testid="hol-input"
         onChange={handleInput}
         value={value}
       />
