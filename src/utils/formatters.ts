@@ -12,10 +12,6 @@ function fromWei(address: string, amount: bigint): number {
   return parseFloat(formatUnits(amount, decimals));
 }
 
-// (USDC, WETH, 0.0005) -> 0.0005 * 10e18 * 10e18 / 10e6
-// (DAI, WETH, 0.0005) -> 0.0005 * 10e18
-// (WETH, USDC, 2000) -> 2000 * 10e6
-// (WETH, DAI, 2000) -> 2000 * 10e18
 function auctionPriceToWei(
   assetBase: string,
   assetQuote: string,
