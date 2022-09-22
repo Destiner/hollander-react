@@ -43,7 +43,10 @@ const HolAsset = ({
   const symbol = useMemo(() => getSymbol(address), [address]);
 
   return (
-    <Asset size={size}>
+    <Asset
+      data-testid="hol-asset"
+      size={size}
+    >
       {showSymbol ? <AssetSymbol>{symbol}</AssetSymbol> : null}
       {showIcon ? <Icon src={iconUrl} /> : null}
     </Asset>
