@@ -61,6 +61,7 @@ function getSymbol(testnetAddress: string): string {
 }
 
 export {
+  DAI_TESTNET_ADDRESS,
   USDC_TESTNET_ADDRESS,
   WETH_TESTNET_ADDRESS,
   getAssets,
