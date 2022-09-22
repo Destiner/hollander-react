@@ -45,7 +45,6 @@ function formatAddress(address: string): string {
 function formatNumber(value: number): string {
   const valueFormat = new Intl.NumberFormat('en-US', {
     notation: 'compact',
-    currency: 'usd',
     minimumFractionDigits: 0,
     maximumFractionDigits: 1,
   });
